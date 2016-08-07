@@ -11,7 +11,7 @@ $(function() {
 
 		// connect oscillator to gain node to speakers
 		self.oscillator.connect(self.gainNode);
-		self.gainNode.connect(self.audioCtx.destination);
+		//self.gainNode.connect(self.audioCtx.destination);
 		//gainNode.disconnect(audioCtx.destination);
 
 		// set options for the oscillator
