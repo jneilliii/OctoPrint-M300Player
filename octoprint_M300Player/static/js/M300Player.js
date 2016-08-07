@@ -27,10 +27,11 @@ $(function() {
 		}
 
 		self.onDataUpdaterPluginMessage = function(plugin, data) {
+			console.log(plugin);
+			console.log(data);
             if (plugin != "M300Player") {
                 return;
             }
-			console.log(data);
 			
 			if(data.type == "beep") {
 				oscillator.frequency.value = parseInt(data.freq);
