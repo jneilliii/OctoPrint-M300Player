@@ -6,12 +6,12 @@ $(function() {
 		self.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
 		// create Oscillator and gain node
-		self.oscillator = audioCtx.createOscillator();
-		self.gainNode = audioCtx.createGain();
+		self.oscillator = self.audioCtx.createOscillator();
+		self.gainNode = self.audioCtx.createGain();
 
 		// connect oscillator to gain node to speakers
-		self.oscillator.connect(gainNode);
-		self.gainNode.connect(audioCtx.destination);
+		self.oscillator.connect(self.gainNode);
+		self.gainNode.connect(self.audioCtx.destination);
 		//gainNode.disconnect(audioCtx.destination);
 
 		// set options for the oscillator
@@ -34,9 +34,9 @@ $(function() {
             }
 			
 			if(data.type == "beep") {
-				self.oscillator.frequency.value = parseInt(data.freq);
-				self.gainNode.connect(audioCtx.destination);
-				setTimeout(function(){ self.gainNode.disconnect(self.audioCtx.destination); }, parseInt(data.duration));
+				self.oscillator.frequency.value = parseInt(data.freq.replace("S",""));
+				self.gainNode.connect(self.audioCtx.destination);
+				setTimeout(function(){ self.gainNode.disconnect(self.audioCtx.destination); }, parseInt(data.duration.replace("P","")));
 			}
 		}
 
