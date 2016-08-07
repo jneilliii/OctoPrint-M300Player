@@ -4,7 +4,7 @@ import octoprint.plugin
 
 class M300Player(octoprint.plugin.AssetPlugin):
 	def PlayM300(self, comm_instance, phase, cmd, cmd_type, gcode, *args, **kwargs):
-		if gcode and gcode.startswith("M300"):
+		# if gcode and gcode.startswith("M300"):
 			temp = gcode.split()
 			iFrequency = temp[1]
 			iDuration = temp[2]
