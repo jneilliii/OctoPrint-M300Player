@@ -27,17 +27,15 @@ $(function() {
 		}
 
 		self.onDataUpdaterPluginMessage = function(plugin, data) {
-			console.log(plugin);
-			console.log(data);
-            // if (plugin != "M300Player") {
-                // return;
-            // }
+            if (plugin != "M300Player") {
+                return;
+            }
 			
-			// if(data.type == "beep") {
-				// self.oscillator.frequency.value = parseInt(data.freq.replace("S",""));
-				// self.gainNode.connect(self.audioCtx.destination);
-				// setTimeout(function(){ self.gainNode.disconnect(self.audioCtx.destination); }, parseInt(data.duration.replace("P","")));
-			// }
+			if(data.type == "beep") {
+				self.oscillator.frequency.value = parseInt(data.freq.replace("S",""));
+				self.gainNode.connect(self.audioCtx.destination);
+				setTimeout(function(){ self.gainNode.disconnect(self.audioCtx.destination); }, parseInt(data.duration.replace("P","")));
+			}
 		}
 
     }
