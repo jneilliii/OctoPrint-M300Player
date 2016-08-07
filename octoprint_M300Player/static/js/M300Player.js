@@ -9,11 +9,9 @@ $(function() {
 		var oscillator = audioCtx.createOscillator();
 		var gainNode = audioCtx.createGain();
 
-		gainNode.gain.value = .02;
-
 		// connect oscillator to gain node to speakers
 		oscillator.connect(gainNode);
-		//gainNode.connect(audioCtx.destination);
+		gainNode.connect(audioCtx.destination);
 		//gainNode.disconnect(audioCtx.destination);
 
 		// set options for the oscillator
@@ -21,6 +19,8 @@ $(function() {
 		oscillator.frequency.value = 300; // value in hertz
 		oscillator.detune.value = 100; // value in cents
 		oscillator.start(0);
+		
+		gainNode.gain.value = .02;
 
 		oscillator.onended = function() {
 		  console.log('Your tone has now stopped playing!');
