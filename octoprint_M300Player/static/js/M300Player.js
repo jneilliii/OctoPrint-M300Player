@@ -30,6 +30,7 @@ $(function() {
             if (plugin != "M300Player") {
                 return;
             }
+			console.log(data);
 			
 			if(data.type == "beep") {
 				oscillator.frequency.value = parseInt(data.freq);
