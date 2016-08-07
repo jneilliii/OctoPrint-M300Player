@@ -1,18 +1,45 @@
 # coding=utf-8
-from __future__ import absolute_import
-
-### (Don't forget to remove me)
-# This is a basic skeleton for your plugin's __init__.py. You probably want to adjust the class name of your plugin
-# as well as the plugin mixins it's subclassing from. This is really just a basic skeleton to get you started.
 
 import octoprint.plugin
 
-class SkeletonPlugin(octoprint.plugin.TemplatePlugin):
-	# TODO Implement me!
-	pass
+class M300Player(octoprint.plugin.AssetPlugin):
+	def PlayM300(self, comm_instance, phase, cmd, cmd_type, gcode, *args, **kwargs):
+		if gcode and gcode.startswith("M300"):
+			self._plugin_manager.send_plugin_message(self._identifier, dict(type="beep", freq=gcode.split()[1].replace("S",""),duration=gcode.split()[2].replace("P","")))
+			return
+			
+	def get_assets(self):
+		return dict(js=["js/M300Player.js"])
+		
+	def get_version(self):
+		return self._plugin_version
+		
+	##~~ Softwareupdate hook
+	def get_update_information(self):
+		return dict(
+			M300Player=dict(
+				displayName="M300Player",
+				displayVersion=self._plugin_version,
 
-# If you want your plugin to be registered within OctoPrint under a different name than what you defined in setup.py
-# ("OctoPrint-PluginSkeleton"), you may define that here. Same goes for the other metadata derived from setup.py that
-# can be overwritten via __plugin_xyz__ control properties. See the documentation for that.
-__plugin_name__ = "Plugin Skeleton"
-__plugin_implementation__ = SkeletonPlugin()
+				# version check: github repository
+				type="github_release",
+				user="jneilliii",
+				repo="OctoPrint-M300Player",
+				current=self._plugin_version,
+
+				# update method: pip
+				pip="https://github.com/jneilliii/OctoPrint-M300Player/archive/{target_version}.zip"
+			)
+		)
+
+__plugin_name__ = "M300Player"
+
+def __plugin_load__():
+	global __plugin_implementation__
+	__plugin_implementation__ = M300Player()
+
+	global __plugin_hooks__
+	__plugin_hooks__ = {
+		"octoprint.comm.protocol.gcode.queuing": __plugin_implementation__.PlayM300,
+		"octoprint.plugin.softwareupdate.check_config": __plugin_implementation__.get_update_information
+	}
