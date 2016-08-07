@@ -8,7 +8,7 @@ class M300Player(octoprint.plugin.AssetPlugin):
 			# temp = gcode.split()
 			# iFrequency = temp[1]
 			# iDuration = temp[2]
-			self._plugin_manager.send_plugin_message(self._identifier, gcode))
+			self._plugin_manager.send_plugin_message(self._identifier, gcode)
 			return
 			
 	def get_assets(self):
