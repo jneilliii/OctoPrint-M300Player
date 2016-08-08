@@ -11,7 +11,7 @@ $(function() {
 
 		// connect oscillator to gain node to speakers
 		self.oscillator.connect(self.gainNode);
-		//self.gainNode.connect(self.audioCtx.destination);
+		self.gainNode.connect(self.audioCtx.destination);
 		//gainNode.disconnect(audioCtx.destination);
 
 		// set options for the oscillator
@@ -21,6 +21,8 @@ $(function() {
 		self.oscillator.start(0);
 		
 		self.gainNode.gain.value = .02;
+		
+		self.audioCtx.suspend();
 
 		self.oscillator.onended = function() {
 		  console.log('Your tone has now stopped playing!');
@@ -31,10 +33,15 @@ $(function() {
                 return;
             }
 			
-			if(data.type == "beep") {
+			if(data.type == "beep") {				
+				do{
+					console.log(self.audioCtx.state);
+				}
+				while(self.audioCtx.state === 'running');				
+				
+				self.audioCtx.resume();
 				self.oscillator.frequency.value = parseInt(data.freq.replace("S",""));
-				self.gainNode.connect(self.audioCtx.destination);
-				setTimeout(function(){ self.gainNode.disconnect(self.audioCtx.destination); }, parseInt(data.duration.replace("P","")));
+				setTimeout(function(){ self.audioCtx.suspend(); }, parseInt(data.duration.replace("P","")));
 			}
 		}
 
