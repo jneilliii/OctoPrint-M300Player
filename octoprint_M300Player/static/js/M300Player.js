@@ -34,8 +34,8 @@ $(function() {
             }
 			
 			if(data.type == "beep") {				
-				self.audioCtx.resume();
 				self.oscillator.frequency.value = parseInt(data.freq.replace("S",""));
+				self.audioCtx.resume();
 				setTimeout(function(){ self.audioCtx.suspend(); }, parseInt(data.duration.replace("P","")));
 			}
 		}
