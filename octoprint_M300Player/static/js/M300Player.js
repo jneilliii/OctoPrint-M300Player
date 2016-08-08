@@ -41,7 +41,12 @@ $(function() {
 				
 				self.audioCtx.resume();
 				self.oscillator.frequency.value = parseInt(data.freq.replace("S",""));
-				setTimeout(function(){ self.audioCtx.suspend(); }, parseInt(data.duration.replace("P","")));
+				
+				// loop
+				self.max_sec = new Date().getTime();
+				while (new Date() < self.max_sec + parseInt(data.duration.replace("P",""))) {}
+				self.audioCtx.suspend();
+				//setTimeout(function(){ self.audioCtx.suspend(); }, parseInt(data.duration.replace("P","")));
 			}
 		}
 
