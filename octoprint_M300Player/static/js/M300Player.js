@@ -34,10 +34,10 @@ $(function() {
             }
 			
 			if(data.type == "beep") {				
-				do{
-					console.log(self.audioCtx.state);
-				}
-				while(self.audioCtx.state === 'running');				
+				// do{
+					// console.log(self.audioCtx.state);
+				// }
+				// while(self.audioCtx.state === 'running');
 				
 				self.audioCtx.resume();
 				self.oscillator.frequency.value = parseInt(data.freq.replace("S",""));
