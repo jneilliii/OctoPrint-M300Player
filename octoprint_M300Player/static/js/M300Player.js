@@ -56,7 +56,7 @@ $(function() {
 			
 			if(data.type == "beep") {
 				self.notesBuffer.push([parseInt(data.freq.replace("S","")),parseInt(data.duration.replace("P",""))]); //push frequency,duration values into array for processing
-				self.audioCtx.resume();
+				self.audioCtx.suspend();
 			}
 		}
 
