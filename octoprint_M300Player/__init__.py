@@ -46,7 +46,7 @@ class M300Player(octoprint.plugin.AssetPlugin,
 		self._plugin_manager.send_plugin_message(self._identifier, dict(type="wavetypeupdate",waveType=self._settings.get(["waveType"]))
 		
 	def get_template_configs(self):
-		return dict(type="settings", custom_bindings=False)
+		return [dict(type="settings", template="M300Player_settings.jinja2")]
 	
 __plugin_name__ = "M300Player"
 
