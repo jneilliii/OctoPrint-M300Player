@@ -2,8 +2,7 @@
     <div class="control-group">
         <label class="control-label">{{ _('waveType') }}</label>
         <div class="controls">
-            <input type="text" class="input-block-level" data-bind="value: settings.plugins.M300Player.waveType">
-			<select id="waveType" data-bind="options: waveType,optionsText: 'name',optionsValue: 'value'"></select>
+			<select data-bind="options: settings.plugins.M300Player.waveType, optionsText: 'name', optionsValue: 'value', value: settings.plugins.M300Player.waveType"></select>
         </div>
     </div>
 </form>
