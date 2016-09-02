@@ -40,10 +40,10 @@ $(function() {
             }
 			
 			if(data.type == "beep") {
-				self.iFrequency = parseInt(data.freq.replace("S","");
+				self.iFrequency = parseInt(data.freq.replace("S",""));
 				self.iDuration = parseInt(data.duration.replace("P",""));
 				self.notesBuffer.push([self.iFrequency,self.iDuration]);
-				self.oscillator.frequency.value = self.iFrequency);
+				self.oscillator.frequency.value = self.iFrequency;
 				self.audioCtx.resume();
 				setTimeout(function(){ self.audioCtx.suspend(); }, self.iDuration);
 			}
