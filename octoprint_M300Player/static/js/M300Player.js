@@ -31,7 +31,7 @@ $(function() {
 		}
 		
 		self.audioCtx.onstatechange = function(){
-			console.log(self.audioCtx.currentTime + ':' + self.audioContext.state);	
+			console.log(self.audioCtx.currentTime + ':' + self.audioCtx.state);	
 		}
 
 		self.onDataUpdaterPluginMessage = function(plugin, data) {
