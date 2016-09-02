@@ -2,6 +2,8 @@ $(function() {
     function M300PlayerViewModel(parameters) {
         var self = this;
 		
+		self.notesBuffer = [];
+		
 		// create web audio api context
 		self.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
@@ -25,7 +27,12 @@ $(function() {
 		self.audioCtx.suspend();
 
 		self.oscillator.onended = function() {
-		  console.log('Your tone has now stopped playing!');
+			console.log('Your tone has now stopped playing!');
+		}
+		
+		self.audioCtx.onstatechange = function(){
+			console.log(self.audioCtx.currentTime + ':' + self.audioContext.state);	
+			self.
 		}
 
 		self.onDataUpdaterPluginMessage = function(plugin, data) {
@@ -33,10 +40,13 @@ $(function() {
                 return;
             }
 			
-			if(data.type == "beep") {				
-				self.oscillator.frequency.value = parseInt(data.freq.replace("S",""));
+			if(data.type == "beep") {
+				self.iFrequency = parseInt(data.freq.replace("S","");
+				self.iDuration = parseInt(data.duration.replace("P",""));
+				self.notesBuffer.push([self.iFrequency,self.iDuration]);
+				self.oscillator.frequency.value = self.iFrequency);
 				self.audioCtx.resume();
-				setTimeout(function(){ self.audioCtx.suspend(); }, parseInt(data.duration.replace("P","")));
+				setTimeout(function(){ self.audioCtx.suspend(); }, self.iDuration);
 			}
 		}
 
