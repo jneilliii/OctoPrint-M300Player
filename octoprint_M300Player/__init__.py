@@ -3,7 +3,8 @@
 import octoprint.plugin
 
 class M300Player(octoprint.plugin.AssetPlugin,
-                       octoprint.plugin.SettingsPlugin):
+				 octoprint.plugin.TemplatePlugin,
+                 octoprint.plugin.SettingsPlugin):
 					   
 	def PlayM300(self, comm_instance, phase, cmd, cmd_type, gcode, *args, **kwargs):
 		if gcode and gcode=="M300":
@@ -44,6 +45,10 @@ class M300Player(octoprint.plugin.AssetPlugin,
 		octoprint.plugin.SettingsPlugin.on_settings_save(self, data)
 		self.waveType = self._settings.get(["waveType"])		
 
+		
+	def get_template_configs(self):
+		return dict(type="settings", custom_bindings=False)
+	
 __plugin_name__ = "M300Player"
 
 def __plugin_load__():
