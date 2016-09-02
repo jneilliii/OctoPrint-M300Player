@@ -38,12 +38,12 @@ $(function() {
 		}
 		
 		self.playNotes = function() {
-			var noteFrequency = self.notesBuffer[0][0];
-			var noteDuration = self.notesBuffer[0][1];
+			self.noteFrequency = self.notesBuffer[0][0];
+			self.noteDuration = self.notesBuffer[0][1];
 			self.notesBuffer.shift();
-			self.oscillator.frequency.value = noteFrequency;
+			self.oscillator.frequency.value = self.noteFrequency;
 			self.audioCtx.resume();
-			setTimeout(self.audioCtx.suspend(),noteDuration);
+			setTimeout(self.audioCtx.suspend,self.noteDuration);
 		}
 
 		self.onDataUpdaterPluginMessage = function(plugin, data) {
