@@ -20,14 +20,14 @@ $(function() {
 		self.oscillator.type = 'square';
 		self.oscillator.frequency.value = 300; // value in hertz
 		self.oscillator.detune.value = 100; // value in cents
+		self.oscillator.start();
 		
 		self.gainNode.gain.value = .02;
 		
 		self.audioCtx.suspend();
 
 		self.oscillator.onended = function() {
-			self.notesBuffer.shift();
-			self.audioCtx.suspend();
+			console.log("oscillator stopped.");
 		}
 		
 		self.audioCtx.onstatechange = function(){
@@ -35,13 +35,17 @@ $(function() {
 			
 			if(self.notesBuffer.length > 0 && self.audioCtx.state == "suspended") {
 				self.oscillator.frequency.value = self.notesBuffer[0][0];
-				self.oscillator.start();
 				self.audioCtx.resume();
-				self.oscillator.stop(self.audioCtx.currentTime + (self.notesBuffer[0][1]/1000));
+				setTimeout(function(){
+					self.notesBuffer.shift();
+					self.audioCtx.suspend();
+				},self.notesBuffer[0][1]);
 			} else if (self.audioCtx.state == "running" && self.notesBuffer.length == 1) {
 				self.oscillator.frequency.value = self.notesBuffer[0][0];
-				self.oscillator.start();
-				self.oscillator.stop(self.audioCtx.currentTime + (self.notesBuffer[0][1]/1000));
+				setTimeout(function(){
+					self.notesBuffer.shift();
+					self.audioCtx.suspend();
+				},self.notesBuffer[0][1]);
 			}
 		}
 
