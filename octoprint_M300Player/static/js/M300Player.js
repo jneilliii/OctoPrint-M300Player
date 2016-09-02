@@ -33,12 +33,12 @@ $(function() {
 		self.audioCtx.onstatechange = function(){
 			console.log(self.audioCtx.currentTime + ':' + self.audioCtx.state);				
 			
-			if(self.notesBuffer.length > 0) && (self.audioCtx.state == "suspended") {
+			if(self.notesBuffer.length > 0 && self.audioCtx.state == "suspended") {
 				self.oscillator.frequency.value = self.notesBuffer[0][0];
 				self.oscillator.start();
 				self.audioCtx.resume();
 				self.oscillator.stop(self.audioCtx.currentTime + (self.notesBuffer[0][1]/1000));
-			} else if (self.audioCtx.state == "running") && (self.notesBuffer.length == 1) {
+			} else if (self.audioCtx.state == "running" && self.notesBuffer.length == 1) {
 				self.oscillator.frequency.value = self.notesBuffer[0][0];
 				self.oscillator.start();
 				self.oscillator.stop(self.audioCtx.currentTime + (self.notesBuffer[0][1]/1000));
