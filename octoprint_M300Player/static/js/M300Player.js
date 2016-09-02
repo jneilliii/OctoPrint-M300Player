@@ -20,19 +20,29 @@ $(function() {
 		self.oscillator.type = 'square';
 		self.oscillator.frequency.value = 300; // value in hertz
 		self.oscillator.detune.value = 100; // value in cents
-		self.oscillator.start(0);
 		
 		self.gainNode.gain.value = .02;
 		
 		self.audioCtx.suspend();
 
 		self.oscillator.onended = function() {
-			console.log('Your tone has now stopped playing!');
+			self.notesBuffer.shift();
+			self.audioCtx.suspend();
 		}
 		
 		self.audioCtx.onstatechange = function(){
-			console.log(self.audioCtx.currentTime + ':' + self.audioCtx.state);	
-			console.log(self.notesBuffer);
+			console.log(self.audioCtx.currentTime + ':' + self.audioCtx.state);				
+			
+			if(self.notesBuffer.length > 0) && (self.audioCtx.state == "suspended") {
+				self.oscillator.frequency.value = self.notesBuffer[0][0];
+				self.oscillator.start();
+				self.audioCtx.resume();
+				self.oscillator.stop(self.audioCtx.currentTime + (self.notesBuffer[0][1]/1000));
+			} else if (self.audioCtx.state == "running") && (self.notesBuffer.length == 1) {
+				self.oscillator.frequency.value = self.notesBuffer[0][0];
+				self.oscillator.start();
+				self.oscillator.stop(self.audioCtx.currentTime + (self.notesBuffer[0][1]/1000));
+			}
 		}
 
 		self.onDataUpdaterPluginMessage = function(plugin, data) {
@@ -41,12 +51,8 @@ $(function() {
             }
 			
 			if(data.type == "beep") {
-				self.iFrequency = parseInt(data.freq.replace("S",""));
-				self.iDuration = parseInt(data.duration.replace("P",""));
-				self.notesBuffer.push([self.iFrequency,self.iDuration]);
-				self.oscillator.frequency.value = self.iFrequency;
+				self.notesBuffer.push([parseInt(data.freq.replace("S","")),parseInt(data.duration.replace("P",""))]); //push frequency,duration values into array for processing
 				self.audioCtx.resume();
-				setTimeout(function(){ self.audioCtx.suspend(); }, self.iDuration);
 			}
 		}
 
