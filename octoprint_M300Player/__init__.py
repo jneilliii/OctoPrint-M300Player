@@ -39,7 +39,7 @@ class M300Player(octoprint.plugin.AssetPlugin,
 		)
 		
 	def get_settings_defaults(self):
-        return dict(waveType="sine")
+		return dict(waveType="sine")
 		
 	def get_template_configs(self):
     return [
