@@ -32,7 +32,6 @@ $(function() {
 		
 		self.audioCtx.onstatechange = function(){
 			console.log(self.audioCtx.currentTime + ':' + self.audioContext.state);	
-			self.
 		}
 
 		self.onDataUpdaterPluginMessage = function(plugin, data) {
