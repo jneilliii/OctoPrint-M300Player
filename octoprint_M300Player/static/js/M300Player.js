@@ -21,7 +21,7 @@ $(function() {
 		//gainNode.disconnect(audioCtx.destination);
 
 		// set options for the oscillator
-		self.oscillator.type = 'sine';
+		self.oscillator.type = self.waveType;
 		self.oscillator.frequency.value = 300; // value in hertz
 		self.oscillator.detune.value = 100; // value in cents
 		self.oscillator.start();
