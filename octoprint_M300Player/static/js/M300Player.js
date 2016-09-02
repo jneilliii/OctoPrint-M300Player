@@ -31,7 +31,7 @@ $(function() {
 		}
 		
 		self.audioCtx.onstatechange = function(){
-			console.log(self.audioCtx.currentTime + ':' + self.audioContext.state);	
+			console.log(self.audioCtx.currentTime + ':' + self.audioCtx.state);	
 		}
 
 		self.onDataUpdaterPluginMessage = function(plugin, data) {
@@ -45,6 +45,9 @@ $(function() {
 				self.notesBuffer.push([self.iFrequency,self.iDuration]);
 				self.oscillator.frequency.value = self.iFrequency;
 				self.audioCtx.resume();
+				if (self.audioCtx.state == "suspended") {
+					console.log(self.notesBuffer);
+				}
 				setTimeout(function(){ self.audioCtx.suspend(); }, self.iDuration);
 			}
 		}
