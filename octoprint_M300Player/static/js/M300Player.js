@@ -77,6 +77,10 @@ $(function() {
 					self.playNotes();
 				}
 			}
+			
+			if(data.type == "wavetypeupdate") {
+				self.oscillator.type = data.waveType;
+			}
 		}
 		
 		self.onBeforeBinding = function() {
