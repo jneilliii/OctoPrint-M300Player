@@ -43,7 +43,7 @@ $(function() {
 			self.notesBuffer.shift();
 			self.oscillator.frequency.value = noteFrequency;
 			self.audioCtx.resume();
-			setTimeout(self.audioCtx.suspend,noteDuration);
+			setTimeout(self.audioCtx.suspend(),noteDuration);
 		}
 
 		self.onDataUpdaterPluginMessage = function(plugin, data) {
