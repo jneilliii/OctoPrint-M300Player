@@ -31,22 +31,19 @@ $(function() {
 		}
 		
 		self.audioCtx.onstatechange = function(){
-			console.log(self.audioCtx.currentTime + ':' + self.audioCtx.state + ':' + self.notesBuffer[0]);				
-			
-			if(self.notesBuffer.length > 0 && self.audioCtx.state === "suspended") {
-				self.oscillator.frequency.value = self.notesBuffer[0][0];
-				self.audioCtx.resume();
-				setTimeout(function(){
-					self.notesBuffer.shift();
-					self.audioCtx.suspend();
-				},self.notesBuffer[0][1]);
-			} /* else if (self.audioCtx.state === "running" && self.notesBuffer.length === 1) {
-				self.oscillator.frequency.value = self.notesBuffer[0][0];
-				setTimeout(function(){
-					self.notesBuffer.shift();
-					self.audioCtx.suspend();
-				},self.notesBuffer[0][1]);
-			}  */
+			console.log(self.audioCtx.currentTime + ':' + self.audioCtx.state + ':' + self.notesBuffer.length + ' notes queued.');
+			if (self.audioCtx.state === "suspended" && self.notesBuffer.length > 1) {
+				self.playNotes();
+			}
+		}
+		
+		self.playNotes = function() {
+			var noteFrequency = self.notesBuffer[0][0];
+			var noteDuration = self.notesBuffer[0][1];
+			self.notesBuffer.shift();
+			self.oscillator.frequency.value = noteFrequency;
+			self.audioCtx.resume();
+			setTimeout(self.audioCtx.suspend},noteDuration);
 		}
 
 		self.onDataUpdaterPluginMessage = function(plugin, data) {
@@ -57,8 +54,7 @@ $(function() {
 			if(data.type == "beep") {
 				self.notesBuffer.push([parseInt(data.freq.replace("S","")),parseInt(data.duration.replace("P",""))]); //push frequency,duration values into array for processing
 				if (self.audioCtx.state === "suspended") {
-					self.audioCtx.resume();
-					self.audioCtx.suspend();
+					self.playNotes();
 				}
 			}
 		}
