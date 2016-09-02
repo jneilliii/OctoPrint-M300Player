@@ -4,7 +4,20 @@ $(function() {
 		
 		self.settings = parameters[0];
 		
-		self.waveType = ko.observable();
+		self.waveType = ko.observableArray([{
+						name : 'sine',
+						value : 'sine'
+					}, {
+						name : 'square',
+						value : 'square'
+					}, {
+						name : 'sawtooth',
+						value : 'sawtooth'
+					}, {
+						name : 'triangle',
+						value : 'triangle'
+					}
+				]);
 		
 		self.notesBuffer = [];
 		
