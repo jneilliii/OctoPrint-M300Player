@@ -31,25 +31,22 @@ $(function() {
 		}
 		
 		self.audioCtx.onstatechange = function(){
-			console.log(self.audioCtx.currentTime + ':' + self.audioCtx.state);				
+			console.log(self.audioCtx.currentTime + ':' + self.audioCtx.state + ':' + self.notesBuffer[0]);				
 			
-			if(self.notesBuffer.length > 0 && self.audioCtx.state == "suspended") {
+			if(self.notesBuffer.length > 0 && self.audioCtx.state === "suspended") {
 				self.oscillator.frequency.value = self.notesBuffer[0][0];
 				self.audioCtx.resume();
 				setTimeout(function(){
 					self.notesBuffer.shift();
 					self.audioCtx.suspend();
 				},self.notesBuffer[0][1]);
-			} else if (self.audioCtx.state == "running" && self.notesBuffer.length == 1) {
+			} /* else if (self.audioCtx.state === "running" && self.notesBuffer.length === 1) {
 				self.oscillator.frequency.value = self.notesBuffer[0][0];
 				setTimeout(function(){
 					self.notesBuffer.shift();
 					self.audioCtx.suspend();
 				},self.notesBuffer[0][1]);
-			} else {
-				console.log(self.notesBuffer.length + ':' + self.audioCtx.state);
-				self.audioCtx.suspend();
-			}
+			}  */
 		}
 
 		self.onDataUpdaterPluginMessage = function(plugin, data) {
