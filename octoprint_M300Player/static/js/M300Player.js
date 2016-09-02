@@ -2,6 +2,10 @@ $(function() {
     function M300PlayerViewModel(parameters) {
         var self = this;
 		
+		self.settings = parameters[0];
+		
+		self.waveType = ko.observable();
+		
 		self.notesBuffer = [];
 		
 		// create web audio api context
@@ -17,7 +21,7 @@ $(function() {
 		//gainNode.disconnect(audioCtx.destination);
 
 		// set options for the oscillator
-		self.oscillator.type = 'square';
+		self.oscillator.type = 'sine';
 		self.oscillator.frequency.value = 300; // value in hertz
 		self.oscillator.detune.value = 100; // value in cents
 		self.oscillator.start();
@@ -61,6 +65,10 @@ $(function() {
 				}
 			}
 		}
+		
+		self.onBeforeBinding = function() {
+            self.waveType(self.settings.settings.plugins.M300Player.waveType());
+        }
 
     }
 
@@ -73,7 +81,7 @@ $(function() {
         // This is a list of dependencies to inject into the plugin, the order which you request
         // here is the order in which the dependencies will be injected into your view model upon
         // instantiation via the parameters argument
-        [],
+        ["settingsViewModel"],
 
         // Finally, this is the list of selectors for all elements we want this view model to be bound to.
         []
