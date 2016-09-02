@@ -32,9 +32,6 @@ $(function() {
 		
 		self.audioCtx.onstatechange = function(){
 			console.log(self.audioCtx.currentTime + ':' + self.audioCtx.state + ':' + self.notesBuffer.length + ' notes queued.');
-			if (self.audioCtx.state === "suspended" && self.notesBuffer.length > 1) {
-				self.playNotes();
-			}
 		}
 		
 		self.playNotes = function() {
@@ -43,8 +40,14 @@ $(function() {
 			self.notesBuffer.shift();
 			self.oscillator.frequency.value = self.noteFrequency;
 			self.audioCtx.resume();
-			setTimeout(function(){self.audioCtx.suspend();},self.noteDuration);
-		}
+			setTimeout(function(){
+							if (self.notesBuffer.length > 0) {
+								self.playNotes();
+							} else {
+								self.audioCtx.suspend();
+							}
+						},self.noteDuration);
+			}
 
 		self.onDataUpdaterPluginMessage = function(plugin, data) {
             if (plugin != "M300Player") {
