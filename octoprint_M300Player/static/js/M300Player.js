@@ -46,6 +46,9 @@ $(function() {
 					self.notesBuffer.shift();
 					self.audioCtx.suspend();
 				},self.notesBuffer[0][1]);
+			} else {
+				console.log(self.notesBuffer.length + ':' + self.audioCtx.state);
+				self.audioCtx.suspend();
 			}
 		}
 
