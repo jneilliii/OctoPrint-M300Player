@@ -2,7 +2,7 @@ $(function() {
     function M300PlayerViewModel(parameters) {
         var self = this;
 		
-		self.settings = parameters[0];
+		self.settingsViewModel = parameters[0];
 		
 		self.waveType = ko.observable();
 		self.gainLevel = ko.observable();
@@ -75,8 +75,8 @@ $(function() {
 		}
 		
 		self.onBeforeBinding = function() {
-            self.waveType(self.settings.settings.plugins.M300Player.waveType());
-			self.gainLevel(self.settings.settings.plugins.M300Player.gainLevel());
+            self.waveType(self.settingsViewModel.settings.plugins.M300Player.waveType());
+			self.gainLevel(self.settingsViewModel.settings.plugins.M300Player.gainLevel());
         }
 
     }
