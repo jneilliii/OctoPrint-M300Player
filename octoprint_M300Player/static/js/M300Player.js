@@ -27,7 +27,7 @@ $(function() {
 		self.oscillator.detune.value = 100; // value in cents
 		self.oscillator.start();
 		
-		self.gainNode.gain.value = .02;
+		self.gainNode.gain.value = 0.2;
 		
 		self.audioCtx.suspend();
 
