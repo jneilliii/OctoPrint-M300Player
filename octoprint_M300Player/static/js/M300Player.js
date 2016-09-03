@@ -91,7 +91,6 @@ $(function() {
 		self.onBeforeBinding = function() {
             self.waveType(self.settingsViewModel.settings.plugins.M300Player.waveType());
 			self.gainLevel(self.settingsViewModel.settings.plugins.M300Player.gainLevel());
-			self.waveTypes(self.settingsViewModel.settings.plugins.M300Player.waveTypes());
         }
 		
 		self.onAfterBinding = function() {
