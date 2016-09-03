@@ -99,6 +99,7 @@ $(function() {
 		}
 		
 		self.onEventSettingsUpdated = function (payload) {
+			console.log(self.settingsViewModel.settings.plugins.M300Player.waveType() + '|' + self.settingsViewModel.settings.plugins.M300Player.gainLevel());
             self.oscillator.type = self.settingsViewModel.settings.plugins.M300Player.waveType();
 			self.gainNode.gain.value = self.settingsViewModel.settings.plugins.M300Player.gainLevel();
         }
