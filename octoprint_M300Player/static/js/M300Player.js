@@ -4,22 +4,22 @@ $(function() {
 		
 		self.settingsViewModel = parameters[0];
 		
-		self.waveType = ko.observableArray([{
-						name : 'sine',
-						value : 'sine'
+		self.waveType = ko.observable();				
+		self.gainLevel = ko.observable();
+		self.waveTypes = ko.observableArray([{
+						name : 'render as smooth',
+						value : 'smooth'
 					}, {
-						name : 'square',
-						value : 'square'
+						name : 'render as flat',
+						value : 'flat'
 					}, {
-						name : 'sawtooth',
-						value : 'sawtooth'
+						name : 'render as wireframe',
+						value : 'wireframe'
 					}, {
-						name : 'triangle',
-						value : 'triangle'
+						name : 'render as points',
+						value : 'point'
 					}
 				]);
-				
-		self.gainLevel = ko.observable();
 		
 		self.notesBuffer = [];
 		
@@ -91,6 +91,7 @@ $(function() {
 		self.onBeforeBinding = function() {
             self.waveType(self.settingsViewModel.settings.plugins.M300Player.waveType());
 			self.gainLevel(self.settingsViewModel.settings.plugins.M300Player.gainLevel());
+			self.waveTypes(self.settingsViewModel.settings.plugins.M300Player.waveTypes());
         }
 		
 		self.onAfterBinding = function() {
