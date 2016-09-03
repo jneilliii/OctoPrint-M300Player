@@ -7,17 +7,17 @@ $(function() {
 		self.waveType = ko.observable();				
 		self.gainLevel = ko.observable();
 		self.waveTypes = ko.observableArray([{
-						name : 'render as smooth',
-						value : 'smooth'
+						name : 'sine',
+						value : 'sine'
 					}, {
-						name : 'render as flat',
-						value : 'flat'
+						name : 'square',
+						value : 'square'
 					}, {
-						name : 'render as wireframe',
-						value : 'wireframe'
+						name : 'sawtooth',
+						value : 'sawtooth'
 					}, {
-						name : 'render as points',
-						value : 'point'
+						name : 'triangle',
+						value : 'triangle'
 					}
 				]);
 		
