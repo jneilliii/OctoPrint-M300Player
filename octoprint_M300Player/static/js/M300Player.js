@@ -22,12 +22,12 @@ $(function() {
 		//gainNode.disconnect(audioCtx.destination);
 
 		// set options for the oscillator
-		self.oscillator.type = self.settings.settings.plugins.M300Player.waveType();
+		self.oscillator.type = self.waveType();
 		self.oscillator.frequency.value = 300; // value in hertz
 		self.oscillator.detune.value = 100; // value in cents
 		self.oscillator.start();
 		
-		self.gainNode.gain.value = parseFloat(self.settings.settings.plugins.M300Player.gainLevel());
+		self.gainNode.gain.value = parseFloat(self.gainLevel());
 		
 		self.audioCtx.suspend();
 
