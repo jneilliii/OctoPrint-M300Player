@@ -68,6 +68,7 @@ $(function() {
 			}
 			
 			if (data.type == "updateSettings") {
+				console.log(self.waveType()+':'+self.gainLevel());
 				self.oscillator.type = self.waveType();
 				self.gainNode.gain.value = parseFloat(self.gainLevel());
 			}
