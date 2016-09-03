@@ -43,8 +43,8 @@ $(function() {
 			self.noteFrequency = self.notesBuffer[0][0];
 			self.noteDuration = self.notesBuffer[0][1];
 			self.notesBuffer.shift();
-			self.gainNode.gain.value = parseInt(self.gainLevel);
-			self.oscillator.type = self.waveType;
+			self.gainNode.gain.value = parseFloat(self.gainLevel);
+			self.oscillator.type = String(self.waveType);
 			self.oscillator.frequency.value = self.noteFrequency;
 			self.audioCtx.resume();
 			setTimeout(function(){
