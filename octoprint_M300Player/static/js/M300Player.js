@@ -83,7 +83,7 @@ $(function() {
 
     // This is how our plugin registers itself with the application, by adding some configuration
     // information to the global variable OCTOPRINT_VIEWMODELS
-    ADDITIONAL_VIEWMODELS.push([
+    OCTOPRINT_VIEWMODELS.push([
         // This is the constructor to call for instantiating the plugin
         M300PlayerViewModel,
 
