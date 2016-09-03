@@ -50,7 +50,7 @@ $(function() {
 		}
 		
 		self.audioCtx.onstatechange = function(){
-			console.log(self.audioCtx.currentTime + ':' + self.audioCtx.state + ':' + self.notesBuffer.length + ' notes queued.');
+			//console.log(self.audioCtx.currentTime + ':' + self.audioCtx.state + ':' + self.notesBuffer.length + ' notes queued.');
 		}
 		
 		self.playNotes = function() {
@@ -76,15 +76,8 @@ $(function() {
 			if(data.type == "beep") {
 				self.notesBuffer.push([parseInt(data.freq.replace("S","")),parseInt(data.duration.replace("P",""))]); //push frequency,duration values into array for processing
 				if (self.audioCtx.state === "suspended") {
-					console.log(self.waveType()+':'+self.gainLevel());
 					self.playNotes();
 				}
-			}
-			
-			if (data.type == "updateSettings") {
-				console.log(self.waveType()+':'+self.gainLevel());
-				self.oscillator.type = self.waveType();
-				self.gainNode.gain.value = parseFloat(self.gainLevel());
 			}
 		}
 		
@@ -99,7 +92,6 @@ $(function() {
 		}
 		
 		self.onEventSettingsUpdated = function (payload) {
-			console.log(self.settingsViewModel.settings.plugins.M300Player.waveType() + '|' + self.settingsViewModel.settings.plugins.M300Player.gainLevel());
             self.oscillator.type = self.settingsViewModel.settings.plugins.M300Player.waveType();
 			self.gainNode.gain.value = self.settingsViewModel.settings.plugins.M300Player.gainLevel();
         }
