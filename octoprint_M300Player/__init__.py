@@ -39,7 +39,7 @@ class M300Player(octoprint.plugin.AssetPlugin,
 		)
 		
 	def get_settings_defaults(self):
-		return dict(waveType="square",gainLevel=.02)
+		return dict(waveType="square",gainLevel=".02")
 	
 	def get_template_configs(self):
 		return [dict(type="settings", template="M300Player_settings.jinja2")]

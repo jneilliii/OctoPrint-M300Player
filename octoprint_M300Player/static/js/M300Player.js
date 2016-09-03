@@ -22,7 +22,7 @@ $(function() {
 		//gainNode.disconnect(audioCtx.destination);
 
 		// set options for the oscillator
-		self.oscillator.type = self.waveType;
+		self.oscillator.type = "sine";
 		self.oscillator.frequency.value = 300; // value in hertz
 		self.oscillator.detune.value = 100; // value in cents
 		self.oscillator.start();
@@ -43,6 +43,8 @@ $(function() {
 			self.noteFrequency = self.notesBuffer[0][0];
 			self.noteDuration = self.notesBuffer[0][1];
 			self.notesBuffer.shift();
+			self.gainNode.gain.value = parseInt(self.gainLevel);
+			self.oscillator.type = self.waveType;
 			self.oscillator.frequency.value = self.noteFrequency;
 			self.audioCtx.resume();
 			setTimeout(function(){
@@ -65,14 +67,11 @@ $(function() {
 					self.playNotes();
 				}
 			}
-			
-			if(data.type == "wavetypeupdate") {
-				self.oscillator.type = data.waveType;
-			}
 		}
 		
 		self.onBeforeBinding = function() {
             self.waveType(self.settings.settings.plugins.M300Player.waveType());
+			self.gainLevel(self.settings.settings.plugins.M300Player.waveType());
         }
 
     }
