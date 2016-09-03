@@ -62,7 +62,7 @@ $(function() {
 			if(data.type == "beep") {
 				self.notesBuffer.push([parseInt(data.freq.replace("S","")),parseInt(data.duration.replace("P",""))]); //push frequency,duration values into array for processing
 				if (self.audioCtx.state === "suspended") {
-					console.log(String(self.waveType())+':'+parseFloat(self.gainLevel()));
+					console.log(self.waveType()+':'+self.gainLevel());
 					self.playNotes();
 				}
 			}
@@ -87,6 +87,6 @@ $(function() {
         ["settingsViewModel"],
 
         // Finally, this is the list of selectors for all elements we want this view model to be bound to.
-        []
+        ["#settings_plugins_M300Player"]
     ]);
 });
