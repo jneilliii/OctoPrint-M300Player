@@ -5,6 +5,7 @@ $(function() {
 		self.settings = parameters[0];
 		
 		self.waveType = ko.observable();
+		self.gainLevel = ko.observable();
 		
 		self.notesBuffer = [];
 		
@@ -26,7 +27,7 @@ $(function() {
 		self.oscillator.detune.value = 100; // value in cents
 		self.oscillator.start();
 		
-		self.gainNode.gain.value = .02;
+		self.gainNode.gain.value = self.gainLevel;
 		
 		self.audioCtx.suspend();
 
