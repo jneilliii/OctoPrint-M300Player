@@ -22,12 +22,12 @@ $(function() {
 		//gainNode.disconnect(audioCtx.destination);
 
 		// set options for the oscillator
-		self.oscillator.type = self.waveType();
+		self.oscillator.type = "square";
 		self.oscillator.frequency.value = 300; // value in hertz
 		self.oscillator.detune.value = 100; // value in cents
 		self.oscillator.start();
 		
-		self.gainNode.gain.value = parseFloat(self.gainLevel());
+		self.gainNode.gain.value = .02;
 		
 		self.audioCtx.suspend();
 
@@ -62,6 +62,7 @@ $(function() {
 			if(data.type == "beep") {
 				self.notesBuffer.push([parseInt(data.freq.replace("S","")),parseInt(data.duration.replace("P",""))]); //push frequency,duration values into array for processing
 				if (self.audioCtx.state === "suspended") {
+					console.log(self.waveType()+':'+self.gainLevel());
 					self.playNotes();
 				}
 			}
