@@ -81,10 +81,12 @@ $(function() {
 		
 		self.onAfterBinding = function() {
 			self.oscillator.type = self.settingsViewModel.settings.plugins.M300Player.waveType();
+			self.gainNode.gain.value = self.settingsViewModel.settings.plugins.M300Player.gainLevel();
 		}
 		
 		self.onEventSettingsUpdated = function (payload) {
             self.oscillator.type = self.settingsViewModel.settings.plugins.M300Player.waveType();
+			self.gainNode.gain.value = self.settingsViewModel.settings.plugins.M300Player.gainLevel();
         }
 
     }
