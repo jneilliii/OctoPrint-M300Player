@@ -22,7 +22,7 @@ $(function() {
 		//gainNode.disconnect(audioCtx.destination);
 
 		// set options for the oscillator
-		self.oscillator.type = self.settingsViewModel.settings.plugins.M300Player.waveType();
+		self.oscillator.type = "square";
 		self.oscillator.frequency.value = 300; // value in hertz
 		self.oscillator.detune.value = 100; // value in cents
 		self.oscillator.start();
@@ -77,6 +77,14 @@ $(function() {
 		self.onBeforeBinding = function() {
             self.waveType(self.settingsViewModel.settings.plugins.M300Player.waveType());
 			self.gainLevel(self.settingsViewModel.settings.plugins.M300Player.gainLevel());
+        }
+		
+		self.onStartup = function() {
+			self.oscillator.type = self.settingsViewModel.settings.plugins.M300Player.waveType();
+		}
+		
+		self.onEventSettingsUpdated = function (payload) {
+            self.oscillator.type = self.settingsViewModel.settings.plugins.M300Player.waveType();
         }
 
     }
