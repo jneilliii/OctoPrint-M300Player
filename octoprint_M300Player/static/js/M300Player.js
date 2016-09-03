@@ -62,7 +62,7 @@ $(function() {
 			if(data.type == "beep") {
 				self.notesBuffer.push([parseInt(data.freq.replace("S","")),parseInt(data.duration.replace("P",""))]); //push frequency,duration values into array for processing
 				if (self.audioCtx.state === "suspended") {
-					console.log(self.waveType()+':'+self.gainLevel());
+					console.log(String(self.waveType())+':'+parseFloat(self.gainLevel()));
 					self.playNotes();
 				}
 			}
