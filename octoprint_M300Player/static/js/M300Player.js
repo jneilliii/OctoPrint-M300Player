@@ -4,7 +4,21 @@ $(function() {
 		
 		self.settingsViewModel = parameters[0];
 		
-		self.waveType = ko.observable();
+		self.waveType = ko.observableArray([{
+						name : 'sine',
+						value : 'sine'
+					}, {
+						name : 'square',
+						value : 'square'
+					}, {
+						name : 'sawtooth',
+						value : 'sawtooth'
+					}, {
+						name : 'triangle',
+						value : 'triangle'
+					}
+				]);
+				
 		self.gainLevel = ko.observable();
 		
 		self.notesBuffer = [];
@@ -103,6 +117,6 @@ $(function() {
         ["settingsViewModel"],
 
         // Finally, this is the list of selectors for all elements we want this view model to be bound to.
-        ["#settings_plugin_M300Player_form"]
+        ["#settings_plugin_M300Player"]
     ]);
 });
