@@ -79,7 +79,7 @@ $(function() {
 			self.gainLevel(self.settingsViewModel.settings.plugins.M300Player.gainLevel());
         }
 		
-		self.onStartup = function() {
+		self.onAfterBinding = function() {
 			self.oscillator.type = self.settingsViewModel.settings.plugins.M300Player.waveType();
 		}
 		
