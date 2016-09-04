@@ -15,7 +15,7 @@ class M300Player(octoprint.plugin.AssetPlugin,
 			return
 			
 	def get_assets(self):
-		return dict(js=["js/M300Player.js"])
+		return dict(js=["js/M300Player.js","js/webaudio_tools.js"])
 		
 	def get_version(self):
 		return self._plugin_version

@@ -58,9 +58,11 @@ $(function() {
 			self.noteDuration = self.notesBuffer[0][1];
 			self.notesBuffer.shift();
 			self.oscillator.frequency.value = self.noteFrequency;
+			self.gainNode.gain.value = self.settingsViewModel.settings.plugins.M300Player.gainLevel();
 			self.audioCtx.resume();
 			setTimeout(function(){
 							if (self.notesBuffer.length > 0) {
+								self.gainNode.gain.value = 0;
 								self.playNotes();
 							} else {
 								self.audioCtx.suspend();
