@@ -50,7 +50,7 @@ $(function() {
 		}
 		
 		self.audioCtx.onstatechange = function(){
-			//console.log(self.audioCtx.currentTime + ':' + self.audioCtx.state + ':' + self.notesBuffer.length + ' notes queued.');
+			console.log(self.audioCtx.currentTime + ':' + self.audioCtx.state + ':' + self.notesBuffer.length + ' notes queued.');
 		}
 		
 		self.playNotes = function() {
