@@ -2,10 +2,24 @@ $(function() {
     function M300PlayerViewModel(parameters) {
         var self = this;
 		
-		self.settings = parameters[0];
+		self.settingsViewModel = parameters[0];
 		
-		self.waveType = ko.observable();
+		self.waveType = ko.observable();				
 		self.gainLevel = ko.observable();
+		self.waveTypes = ko.observableArray([{
+						name : 'sine',
+						value : 'sine'
+					}, {
+						name : 'square',
+						value : 'square'
+					}, {
+						name : 'sawtooth',
+						value : 'sawtooth'
+					}, {
+						name : 'triangle',
+						value : 'triangle'
+					}
+				]);
 		
 		self.notesBuffer = [];
 		
@@ -22,7 +36,7 @@ $(function() {
 		//gainNode.disconnect(audioCtx.destination);
 
 		// set options for the oscillator
-		self.oscillator.type = self.waveType();// "square";
+		self.oscillator.type = "square";
 		self.oscillator.frequency.value = 300; // value in hertz
 		self.oscillator.detune.value = 100; // value in cents
 		self.oscillator.start();
@@ -36,7 +50,7 @@ $(function() {
 		}
 		
 		self.audioCtx.onstatechange = function(){
-			console.log(self.audioCtx.currentTime + ':' + self.audioCtx.state + ':' + self.notesBuffer.length + ' notes queued.');
+			//console.log(self.audioCtx.currentTime + ':' + self.audioCtx.state + ':' + self.notesBuffer.length + ' notes queued.');
 		}
 		
 		self.playNotes = function() {
@@ -62,15 +76,24 @@ $(function() {
 			if(data.type == "beep") {
 				self.notesBuffer.push([parseInt(data.freq.replace("S","")),parseInt(data.duration.replace("P",""))]); //push frequency,duration values into array for processing
 				if (self.audioCtx.state === "suspended") {
-					console.log(self.waveType()+':'+self.gainLevel());
 					self.playNotes();
 				}
 			}
 		}
 		
 		self.onBeforeBinding = function() {
-            self.waveType(self.settings.settings.plugins.M300Player.waveType());
-			self.gainLevel(self.settings.settings.plugins.M300Player.gainLevel());
+            self.waveType(self.settingsViewModel.settings.plugins.M300Player.waveType());
+			self.gainLevel(self.settingsViewModel.settings.plugins.M300Player.gainLevel());
+        }
+		
+		self.onAfterBinding = function() {
+			self.oscillator.type = self.settingsViewModel.settings.plugins.M300Player.waveType();
+			self.gainNode.gain.value = self.settingsViewModel.settings.plugins.M300Player.gainLevel();
+		}
+		
+		self.onEventSettingsUpdated = function (payload) {
+            self.oscillator.type = self.settingsViewModel.settings.plugins.M300Player.waveType();
+			self.gainNode.gain.value = self.settingsViewModel.settings.plugins.M300Player.gainLevel();
         }
 
     }
@@ -87,6 +110,6 @@ $(function() {
         ["settingsViewModel"],
 
         // Finally, this is the list of selectors for all elements we want this view model to be bound to.
-        ["#settings_plugin_M300Player"]
+        ["#settings_plugin_M300Player_form"]
     ]);
 });
