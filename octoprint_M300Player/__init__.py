@@ -24,7 +24,7 @@ class M300Player(octoprint.plugin.AssetPlugin,
 	def get_update_information(self):
 		return dict(
 			M300Player=dict(
-				displayName="M300Player",
+				displayName="M300 Player",
 				displayVersion=self._plugin_version,
 
 				# version check: github repository
@@ -44,7 +44,8 @@ class M300Player(octoprint.plugin.AssetPlugin,
 	def get_template_configs(self):
 		return [dict(type="settings",custom_bindings=True)]
 	
-__plugin_name__ = "M300Player"
+__plugin_name__ = "M300 Player"
+__plugin_pythoncompat__ = ">=2.7,<4"
 
 def __plugin_load__():
 	global __plugin_implementation__
